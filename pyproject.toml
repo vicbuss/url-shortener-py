@@ -4,12 +4,15 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.8"
-dependencies = []
+dependencies = [
+    "flask>=3.0.3",
+]
 
 [dependency-groups]
 dev = [
     "mypy>=1.14.1",
     "pytest>=8.3.5",
+    "python-dotenv>=1.0.1",
     "ruff>=0.12.9",
 ]
 
@@ -38,7 +41,5 @@ quote-style = "single"
 indent-style = "tab"
 docstring-code-format = true
 
-[mypy]
-strict = true
-files = .
-exclude = venv
+[tool.mypy]
+mypy_path = "src"
