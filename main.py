@@ -1,10 +1,10 @@
-def main():
+def main() -> None:
 	print('Hello from urlshortener!')
 
 
 if __name__ == '__main__':
 	main()
 
-poop = 1
+poop: int = 1
 
 poop = 'a'

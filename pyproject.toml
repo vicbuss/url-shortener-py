@@ -40,3 +40,5 @@ docstring-code-format = true
 
 [mypy]
 strict = true
+files = .
+exclude = venv
