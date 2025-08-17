@@ -1,0 +1,29 @@
+{% extends "template.html" %}
+
+{% block title %}Url Shortened{% endblock %}
+
+{% block content %}
+
+            <h1>URL Shortened Successfully!</h1>
+
+            <p>Your shortened UTL is:</p>
+
+            <div>
+                <input type="text" id="shortUrl" value="{{ short_url }}" readonly>
+                <button onclick="copyUrl()">Copy</button>
+            </div>
+
+            <a href="{{url_for('url_controller.shorten')}}">Shorten another URL</a>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function copyUrl() {
+        const urlField = document.getElementById('shortUrl')
+        navigator.clipboard.writeText(urlField.value)
+            .then(() => alert("Copied: " + urlField.value))
+            .catch(err => console.error("Failed to copy: ", err))
+    }
+</script>
+{% endblock %}

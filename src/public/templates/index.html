@@ -1,1 +1,14 @@
-<p>Hello!</p>
+{% extends "template.html" %}
+
+{% block title %}Url Shortener - Shorten{% endblock %}
+
+{% block content %}
+
+            <h1>Shorten your url</h1>
+            <form action="{{ url_for('url_controller.shorten') }}" method="POST">
+                <label for="original_url">Enter URL:</label><br>
+                <input type="url" id="original_url" name="original_url" placeholder="https://example.com" required style="width: 300px; padding: 5px;"><br><br>
+                <button type="submit" style="padding: 5px 10px;">Shorten</button>
+            </form>
+
+{% endblock %}

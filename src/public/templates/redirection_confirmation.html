@@ -1,0 +1,17 @@
+
+{% extends "template.html" %}
+
+{% block title %}Url Shortener - Shorten{% endblock %}
+
+{% block content %}
+
+            <h1>Url redirection</h1>
+            <p>You are being redirected to:</p>
+            <p><strong>{{ long_url }}</strong></p>
+            <form action="{{ url_for('redirect_controller.redirect_user') }}" method="POST">
+                <input type="hidden" id="slug" name="slug" value="{{ slug }}"><br><br>
+                <button type="submit" style="padding: 5px 10px;">Confirm</button>
+                <a href="{{url_for('url_controller.shorten')}}">I don't trust this URL</a>
+            </form>
+
+{% endblock %}
