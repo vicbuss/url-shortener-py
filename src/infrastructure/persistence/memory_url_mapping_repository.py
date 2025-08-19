@@ -1,12 +1,12 @@
 from typing import Dict, Union
 
-from src.models.repositories.url_mapping_repository import (
-	IUrlMappingRepository,
-)
 from src.models.url_mapping import UrlMapping
+from src.repositories.url_mapping_repository import (
+	IURLMappingRepository,
+)
 
 
-class MemoryURLMappingRepository(IUrlMappingRepository):
+class MemoryURLMappingRepository(IURLMappingRepository):
 	__data: Dict[str, str] = {}
 
 	def save(self, url_mapping: UrlMapping) -> None:

@@ -1,8 +1,8 @@
 from src.infrastructure.persistence.memory_url_mapping_repository import (
 	MemoryURLMappingRepository,
 )
-from src.models.repositories.url_mapping_repository import (
-	IUrlMappingRepository,
+from src.repositories.url_mapping_repository import (
+	IURLMappingRepository,
 )
 
 
@@ -10,7 +10,7 @@ class UrlMappingRepositoryFactory:
 	__registry = {'memory': lambda: MemoryURLMappingRepository()}
 
 	@classmethod
-	def create(cls, repo_type: str) -> IUrlMappingRepository:
+	def create(cls, repo_type: str) -> IURLMappingRepository:
 		try:
 			return cls.__registry[repo_type]()
 		except KeyError as err:

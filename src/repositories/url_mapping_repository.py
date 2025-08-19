@@ -4,7 +4,7 @@ from typing import Union
 from src.models.url_mapping import UrlMapping
 
 
-class IUrlMappingRepository(ABC):
+class IURLMappingRepository(ABC):
 	@abstractmethod
 	def save(self, url_mapping: UrlMapping) -> None:
 		"""Save slug and long_url_pair"""
