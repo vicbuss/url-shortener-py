@@ -7,14 +7,17 @@ from src.repositories.url_mapping_repository import (
 
 
 class MemoryURLMappingRepository(IURLMappingRepository):
-	__data: Dict[str, str] = {}
-	__curr_id: int = 0
+	def __init__(self) -> None:
+		super().__init__()
+		self.__data: Dict[str, str] = {}
+		self.__curr_id: int = 0
 
 	def save(self, url_mapping: UrlMapping) -> None:
 		slug = url_mapping.slug
 		long_url = url_mapping.long_url
 
 		self.__data[slug] = long_url
+		self.__curr_id += 1
 
 	def get(self, slug: str) -> Union[UrlMapping, None]:
 		long_url = self.__data.get(slug)

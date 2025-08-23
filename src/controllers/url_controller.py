@@ -16,19 +16,19 @@ class URLController:
 
 	def shorten(self) -> str:
 		if request.method == 'POST':
+			original_url = request.form['original_url']
 			try:
-				original_url = request.form['original_url']
 				url_is_safe = self.__url_validation_service.is_valid_url(original_url)
-				if not url_is_safe:
-					abort(422)
-
-				url = my_domain
-				slug = self.__url_shortening_service.shorten_url(original_url).slug
-				short_url = f'{url}/{slug}'
-				return render_template('shortened.html', short_url=short_url)
 			except ValueError:
 				abort(422)
 			except Exception:
 				abort(500)
+			if not url_is_safe:
+				abort(422)
+
+			url = my_domain
+			slug = self.__url_shortening_service.shorten_url(original_url).slug
+			short_url = f'{url}/{slug}'
+			return render_template('shortened.html', short_url=short_url)
 
 		return render_template('index.html')
