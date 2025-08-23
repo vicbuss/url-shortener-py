@@ -1,3 +1,3 @@
-from .envs import my_domain
+from .envs import key, my_domain
 
-__all__ = ['my_domain']
+__all__ = ['my_domain', 'key']

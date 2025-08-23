@@ -8,6 +8,7 @@ from src.repositories.url_mapping_repository import (
 
 class MemoryURLMappingRepository(IURLMappingRepository):
 	__data: Dict[str, str] = {}
+	__curr_id: int = 0
 
 	def save(self, url_mapping: UrlMapping) -> None:
 		slug = url_mapping.slug
@@ -18,3 +19,6 @@ class MemoryURLMappingRepository(IURLMappingRepository):
 	def get(self, slug: str) -> Union[UrlMapping, None]:
 		long_url = self.__data.get(slug)
 		return UrlMapping(slug, long_url) if long_url is not None else None
+
+	def get_id(self) -> int:
+		return self.__curr_id + 1

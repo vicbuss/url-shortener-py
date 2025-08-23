@@ -14,3 +14,8 @@ class IURLMappingRepository(ABC):
 	def get(self, slug: str) -> Union[UrlMapping, None]:
 		"""Return Url Mapping if found"""
 		pass
+
+	@abstractmethod
+	def get_id(self) -> int:
+		"""Returns incremental integer id"""
+		pass

@@ -39,13 +39,16 @@ class URLValidationService:
 				return True
 
 		return False
-	
+
 	def __is_unsafe_url(self, url: str) -> bool:
 		parsed = urlparse(url)
 		host = parsed.hostname
-		if parsed.scheme not in ('http', 'https') or not host or host == self.__my_domain or self.__is_unsafe_host(host):
-			return True
-		return False
+		return (
+			parsed.scheme not in ('http', 'https')
+			or not host
+			or host == self.__my_domain
+			or self.__is_unsafe_host(host)
+		)
 
 	def __safe_resolve_url(self, url: str, max_redirects: int = 5) -> str:
 		parsed = urlparse(url)
