@@ -78,5 +78,16 @@ class URLValidationService:
 
 	@cache_url_validation(10 * 60, 2 * 60, 1 * 60)
 	def is_valid_url(self, url: str) -> bool:
-		resolved_url = self.__safe_resolve_url(url)
-		return self.__url_safety_validation_repository.validate_url_safety(resolved_url)
+		try:
+			resolved_url = self.__safe_resolve_url(url)
+			is_safe = self.__url_safety_validation_repository.validate_url_safety(
+				resolved_url
+			)
+
+			if not is_safe:
+				raise ValueError(f'Unsafe URL: {url}')
+
+			return True
+
+		except Exception as e:
+			raise ValueError(f'URL validation failed: {e}') from e

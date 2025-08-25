@@ -18,13 +18,11 @@ class URLController:
 		if request.method == 'POST':
 			original_url = request.form['original_url']
 			try:
-				url_is_safe = self.__url_validation_service.is_valid_url(original_url)
+				self.__url_validation_service.is_valid_url(original_url)
 			except ValueError:
 				abort(422)
 			except Exception:
 				abort(500)
-			if not url_is_safe:
-				abort(422)
 
 			url = my_domain
 			slug = self.__url_shortening_service.shorten_url(original_url).slug
