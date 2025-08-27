@@ -1,9 +1,8 @@
-from typing import Union
-
 from src.models.url_mapping import UrlMapping
 from src.repositories.url_mapping_repository import (
 	IURLMappingRepository,
 )
+from src.services.utils.service_errors import NotFoundError
 from src.services.utils.slug_generation_strategy import SlugGenerationStrategy
 
 
@@ -24,7 +23,10 @@ class URLShorteningService:
 
 		return url_mapping
 
-	def get_mapping(self, slug: str) -> Union[UrlMapping, None]:
-		url_mapping_or_none = self.__url_mapping_repository.get(slug)
+	def get_mapping(self, slug: str) -> UrlMapping:
+		url_mapping = self.__url_mapping_repository.get(slug)
 
-		return url_mapping_or_none
+		if url_mapping is None:
+			raise NotFoundError(f'Url mapping for slug {slug} not found')
+
+		return url_mapping
