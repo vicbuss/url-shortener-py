@@ -14,6 +14,6 @@ def make_url_validation_service() -> URLValidationService:
 
 
 def make_url_shortening_service() -> URLShorteningService:
-	url_mapping_repository = make_url_mapping_repository('memory')
+	url_mapping_repository = make_url_mapping_repository('redis')
 	slug_generation_strategy = BlowfishSlugGeneration(key)
 	return URLShorteningService(url_mapping_repository, slug_generation_strategy)
