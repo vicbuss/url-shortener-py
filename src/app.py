@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask, render_template, request
+from werkzeug.exceptions import HTTPException
 
 from src.routes.routes import redirect_controller_bp, url_controller_bp
 
@@ -18,19 +19,22 @@ app.register_blueprint(redirect_controller_bp)
 
 @app.errorhandler(404)
 def handle_404(error: Exception) -> str:
-	app.logger.error(f'404 at {request.path}: {error}')
+	msg = error.description if isinstance(error, HTTPException) else str(error)
+	app.logger.error(f'404 at {request.path}: {msg}')
 	return render_template('error.html', code=404, message='Page Not Found')
 
 
 @app.errorhandler(422)
 def handle_422(error: Exception) -> str:
-	app.logger.error(f'422 at {request.path}: {error}')
+	msg = error.description if isinstance(error, HTTPException) else str(error)
+	app.logger.error(f'422 at {request.path}: {msg}')
 	return render_template('error.html', code=422, message='Unprocessable URL')
 
 
 @app.errorhandler(500)
 def handle_500(error: Exception) -> str:
-	app.logger.error(f'500 at {request.path}: {error}')
+	msg = error.description if isinstance(error, HTTPException) else str(error)
+	app.logger.error(f'500 at {request.path}: {msg}')
 	return render_template('error.html', code=500, message='Internal Server Error')
 
 

@@ -67,7 +67,7 @@ class RedisClient:
 	def set(
 		self,
 		key: str,
-		value: str,
+		value: bytes | str | int | float,
 		ex: int | None = None,
 		exat: int | None = None,
 		nx: bool = False,
