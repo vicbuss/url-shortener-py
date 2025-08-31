@@ -1,7 +1,7 @@
 from typing import Callable, Dict
 
 from src.infrastructure.factories.singleton_factories import get_redis_client
-from src.infrastructure.persistence.memory_url_mapping_repository import (
+from src.infrastructure.persistence.memory.memory_url_mapping_repository import (
 	MemoryURLMappingRepository,
 )
 from src.infrastructure.persistence.redis.redis_url_mapping_repository import (

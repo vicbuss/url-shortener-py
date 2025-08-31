@@ -1,9 +1,7 @@
 from typing import Union
 
-from src.infrastructure.persistence.redis.redis_client import RedisClient
-
 from src.infrastructure.config import redis_credentials
-
+from src.infrastructure.persistence.redis.redis_client import RedisClient
 
 _redis_client: Union[RedisClient, None] = None
 
