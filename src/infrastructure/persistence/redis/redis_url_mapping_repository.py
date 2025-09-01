@@ -21,13 +21,9 @@ class RedisURLMappingRepository(IURLMappingRepository):
 
 	def get(self, slug: str) -> Union[UrlMapping, None]:
 		key = self.__get_key(slug)
-		res: Union[str, None] = self.__client.get(key=key)
+		res = self.__client.getex(key=key, ttl_sec=self.__tti)
 
-		if res is not None:
-			self.__client.expire(key=key, ttl_sec=self.__tti)
-			return UrlMapping(slug=slug, long_url=res)
-
-		return None
+		return None if res is None else UrlMapping(slug=slug, long_url=res)
 
 	def get_id(self) -> int:
 		key = self.__get_key('counter')

@@ -106,3 +106,8 @@ class RedisClient:
 	) -> bool:
 		set_expire: bool = self.client.expire(key, ttl_sec, nx, xx, gt, lt)
 		return set_expire
+
+	@with_retry
+	def getex(self, key: str, ttl_sec: int, persist: bool = False) -> str | None:
+		res: str | None = self.client.getex(name=key, ex=ttl_sec, persist=persist)
+		return res
