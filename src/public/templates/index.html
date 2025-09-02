@@ -3,12 +3,20 @@
 {% block title %}Url Shortener - Shorten{% endblock %}
 
 {% block content %}
-
-            <h1>Shorten your url</h1>
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-sm p-4">
+            <h1 class="card-title text-center mb-4">Shorten Your URL</h1>
             <form action="{{ url_for('url_controller.shorten') }}" method="POST">
-                <label for="original_url">Enter URL:</label><br>
-                <input type="url" id="original_url" name="original_url" placeholder="https://example.com" required style="width: 300px; padding: 5px;"><br><br>
-                <button type="submit" style="padding: 5px 10px;">Shorten</button>
+                <div class="mb-3">
+                    <label for="original_url" class="form-label">Enter URL</label>
+                    <input type="url" class="form-control" id="original_url" name="original_url" placeholder="https://example.com" required>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg">Shorten</button>
+                </div>
             </form>
-
+        </div>
+    </div>
+</div>
 {% endblock %}

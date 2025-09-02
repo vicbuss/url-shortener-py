@@ -1,17 +1,62 @@
-
 {% extends "template.html" %}
 
-{% block title %}Url Shortener - Shorten{% endblock %}
+{% block title %}Url Shortener - Redirection{% endblock %}
 
 {% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-sm p-4 text-center">
+            <h1 class="card-title mb-4">URL Redirection</h1>
+            <p class="mb-2">You are being redirected to:</p>
+            
+            <!-- URL container -->
+            <div id="urlContainer" class="mb-2 position-relative" style="max-height: 3rem; overflow: hidden; cursor: pointer;">
+                <p id="longUrl" class="fw-bold mb-0">{{ long_url }}</p>
+            </div>
+            <small id="toggleLabel" class="text-muted mb-3" style="cursor: pointer; display: none;">See more</small>
 
-            <h1>Url redirection</h1>
-            <p>You are being redirected to:</p>
-            <p><strong>{{ long_url }}</strong></p>
             <form action="{{ url_for('redirect_controller.redirect_user') }}" method="POST">
-                <input type="hidden" id="slug" name="slug" value="{{ slug }}"><br><br>
-                <button type="submit" style="padding: 5px 10px;">Confirm</button>
-                <a href="{{url_for('url_controller.shorten')}}">I don't trust this URL</a>
+                <input type="hidden" id="slug" name="slug" value="{{ slug }}">
+                <div class="d-grid gap-2 mb-3">
+                    <button type="submit" class="btn btn-primary btn-lg">Confirm</button>
+                </div>
             </form>
 
+            <a href="{{ url_for('url_controller.shorten') }}" class="btn btn-outline-secondary">I don't trust this URL</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const urlContainer = document.getElementById('urlContainer');
+const longUrl = document.getElementById('longUrl');
+const toggleLabel = document.getElementById('toggleLabel');
+let expanded = false;
+
+// Check if container is overflowing
+function checkTruncation() {
+    if (urlContainer.scrollHeight > urlContainer.clientHeight) {
+        toggleLabel.style.display = 'block';
+    } else {
+        toggleLabel.style.display = 'none';
+    }
+}
+
+// Toggle expanded/collapsed state
+toggleLabel.addEventListener('click', () => {
+    expanded = !expanded;
+    if (expanded) {
+        urlContainer.style.maxHeight = 'none';
+        toggleLabel.textContent = 'See less';
+    } else {
+        urlContainer.style.maxHeight = '3rem';
+        toggleLabel.textContent = 'See more';
+    }
+});
+
+window.addEventListener('load', checkTruncation);
+window.addEventListener('resize', checkTruncation);
+</script>
 {% endblock %}

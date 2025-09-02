@@ -3,27 +3,47 @@
 {% block title %}Url Shortened{% endblock %}
 
 {% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-sm p-4 text-center">
+            <h1 class="card-title mb-4">URL Shortened Successfully!</h1>
 
-            <h1>URL Shortened Successfully!</h1>
+            <p class="mb-3">Your shortened URL is:</p>
 
-            <p>Your shortened URL is:</p>
-
-            <div>
-                <input type="text" id="shortUrl" value="{{ short_url }}" readonly>
-                <button onclick="copyUrl()">Copy</button>
+            <div class="mb-3 position-relative">
+                <input type="text" class="form-control form-control-lg text-center" id="shortUrl" value="{{ short_url }}" readonly style="cursor: pointer;">
+                <small id="copyLabel" class="form-text text-muted mt-1 d-block">Copy</small>
             </div>
 
-            <a href="{{url_for('url_controller.shorten')}}">Shorten another URL</a>
-
+            <a href="{{ url_for('url_controller.shorten') }}" class="btn btn-primary mt-3">Shorten another URL</a>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
 <script>
-    function copyUrl() {
-        const urlField = document.getElementById('shortUrl')
+    const urlField = document.getElementById('shortUrl');
+    const copyLabel = document.getElementById('copyLabel');
+
+    urlField.addEventListener('click', () => {
         navigator.clipboard.writeText(urlField.value)
-            .then(() => alert("Copied: " + urlField.value))
-            .catch(err => console.error("Failed to copy: ", err))
-    }
+            .then(() => {
+                copyLabel.textContent = 'Copied!';
+                copyLabel.classList.remove('text-muted');
+                copyLabel.classList.add('text-success');
+                setTimeout(() => {
+                    copyLabel.textContent = 'Copy';
+                    copyLabel.classList.remove('text-success');
+                    copyLabel.classList.add('text-muted');
+                }, 2000);
+            })
+            .catch(err => {
+                copyLabel.textContent = 'Failed to copy';
+                copyLabel.classList.remove('text-muted');
+                copyLabel.classList.add('text-danger');
+                console.error("Failed to copy: ", err);
+            });
+    });
 </script>
 {% endblock %}
