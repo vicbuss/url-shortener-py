@@ -1,48 +1,15 @@
 {% extends "template.html" %}
 
-{% block title %}Url Shortener - Shorten{% endblock %}
-
-
-{% block head %}
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-            background-color: #f2f2f2;
-            color: #333;
-        }
-        h1 {
-            font-size: 72px;
-            margin-bottom: 10px;
-        }
-        h2 {
-            font-size: 24px;
-            margin-bottom: 30px;
-        }
-        a {
-            text-decoration: none;
-            color: #007bff;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .container {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 8px;
-            display: inline-block;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-    </style>
-{% endblock %}
+{% block title %}Url Shortener - Error{% endblock %}
 
 {% block content %}
-
-    <div class="container">
-        <h1>{{ code }}</h1>
-        <h2>{{ message }}</h2>
-        <p><a href="/">Go back</a></p>
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="card shadow-lg text-center p-4" style="max-width: 500px;">
+    <div class="card-body">
+      <h1 class="display-1 text-danger">{{ code }}</h1>
+      <h2 class="h4 mb-4">{{ message }}</h2>
+      <a href="/" class="btn btn-primary">Go back</a>
     </div>
-
+  </div>
+</div>
 {% endblock %}
