@@ -1,5 +1,7 @@
 # Slugger - A URL Shortener
 
+## Video Demo: https://youtu.be/nJx6oIDu0XI
+
 ## 📖 Overview
 
 This is a custom-built **URL shortener** implemented in **Python, Flask, and Redis**.  
