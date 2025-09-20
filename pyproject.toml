@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.8"
 dependencies = [
+    "bcrypt>=4.3.0",
     "flask>=3.0.3",
     "pycryptodome>=3.23.0",
     "redis>=6.1.1",

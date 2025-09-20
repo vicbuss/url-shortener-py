@@ -29,4 +29,4 @@ class URLController:
 			except Exception:
 				abort(500)
 
-		return render_template('index.html')
+		return render_template('shorten.html')

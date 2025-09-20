@@ -6,6 +6,7 @@ from src.infrastructure.persistence.url_mapping_repository_factory import (
 from src.infrastructure.persistence.url_safety_repository_factory import (
 	URLSafetyRepositoryFactory,
 )
+from src.infrastructure.persistence.users_repository_factory import UsersRepositoryFactory
 from src.repositories.url_mapping_repository import (
 	IURLMappingRepository,
 )
@@ -13,6 +14,7 @@ from src.repositories.url_safety_status_repository import IURLSafetyStatusReposi
 from src.repositories.url_safety_validation_repository import (
 	IURLSafetyValidationRepository,
 )
+from src.repositories.users_repository import IUsersRepository
 
 
 def make_url_mapping_repository(type: str) -> IURLMappingRepository:
@@ -29,3 +31,7 @@ def make_url_safety_validation_repository() -> IURLSafetyValidationRepository:
 		api_key=google_safe_browsing_api_key,
 		url_safety_status_repository=url_safety_status_repository,
 	)
+
+
+def make_users_repository(type: str) -> IUsersRepository:
+	return UsersRepositoryFactory.create(type)

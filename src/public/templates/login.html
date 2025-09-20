@@ -1,0 +1,63 @@
+{% extends "template.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6 col-lg-5">
+    <div class="card shadow-sm p-4">
+      <h1 class="card-title text-center mb-4">Login</h1>
+      <form action="{{ url_for('auth_controller.login') }}" method="POST">
+        
+        <!-- Username -->
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="username" 
+            name="username" 
+            placeholder="Enter your username" 
+            required
+          >
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input 
+            type="password" 
+            class="form-control" 
+            id="password" 
+            name="password" 
+            placeholder="Enter your password" 
+            required
+          >
+        </div>
+
+        <!-- Remember me -->
+        <div class="form-check mb-3">
+          <input 
+            class="form-check-input" 
+            type="checkbox" 
+            id="remember" 
+            name="remember"
+          >
+          <label class="form-check-label" for="remember">
+            Remember me
+          </label>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+      </form>
+
+      <!-- Extra links -->
+      <div class="text-center mt-3">
+        <a href="https://www.linkedin.com/in/victor-bussiki/">Contact me for a demo account</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

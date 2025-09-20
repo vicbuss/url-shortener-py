@@ -1,0 +1,112 @@
+{% extends "template.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6 col-lg-5">
+    <div class="card shadow-sm p-4">
+      <h1 class="card-title text-center mb-4">Register</h1>
+      <form method="POST" action="{{ url_for('auth_controller.register') }}">
+        
+        <!-- Username -->
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="username" 
+            name="username" 
+            required>
+          <div id="usernameFeedback" class="form-text"></div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input 
+            type="password" 
+            class="form-control" 
+            id="password" 
+            name="password" 
+            required>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="mb-3">
+          <label for="confirmPassword" class="form-label">Confirm Password</label>
+          <input 
+            type="password" 
+            class="form-control" 
+            id="confirmPassword" 
+            name="confirm_password" 
+            required>
+          <div id="passwordFeedback" class="form-text"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Register</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// -------- Password confirmation --------
+const password = document.getElementById("password");
+const confirmPassword = document.getElementById("confirmPassword");
+const passwordFeedback = document.getElementById("passwordFeedback");
+
+function checkPasswords() {
+  if (confirmPassword.value === "") {
+    passwordFeedback.textContent = "";
+    confirmPassword.classList.remove("is-invalid", "is-valid");
+    return;
+  }
+  if (password.value === confirmPassword.value) {
+    confirmPassword.classList.remove("is-invalid");
+    confirmPassword.classList.add("is-valid");
+    passwordFeedback.textContent = "Passwords match ";
+    passwordFeedback.className = "form-text text-success";
+  } else {
+    confirmPassword.classList.remove("is-valid");
+    confirmPassword.classList.add("is-invalid");
+    passwordFeedback.textContent = "Passwords do not match";
+    passwordFeedback.className = "form-text text-danger";
+  }
+}
+
+password.addEventListener("input", checkPasswords);
+confirmPassword.addEventListener("input", checkPasswords);
+
+// -------- Username availability check --------
+const usernameInput = document.getElementById("username");
+const usernameFeedback = document.getElementById("usernameFeedback");
+
+usernameInput.addEventListener("blur", () => {
+  const username = usernameInput.value.trim();
+  if (!username) return;
+
+  fetch(`/check-username?username=${encodeURIComponent(username)}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.available) {
+        usernameInput.classList.remove("is-invalid");
+        usernameInput.classList.add("is-valid");
+        usernameFeedback.textContent = "Username is available️";
+        usernameFeedback.className = "form-text text-success";
+      } else {
+        usernameInput.classList.remove("is-valid");
+        usernameInput.classList.add("is-invalid");
+        usernameFeedback.textContent = "Username is already taken";
+        usernameFeedback.className = "form-text text-danger";
+      }
+    })
+    .catch(() => {
+      usernameFeedback.textContent = "Error checking username";
+      usernameFeedback.className = "form-text text-warning";
+    });
+});
+</script>
+{% endblock %}
