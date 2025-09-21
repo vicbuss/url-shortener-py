@@ -3,13 +3,16 @@
 {% block title %}Url Shortener - Error{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-center align-items-center vh-100">
-  <div class="card shadow-lg text-center p-4" style="max-width: 500px;">
-    <div class="card-body">
-      <h1 class="display-1 text-danger">{{ code }}</h1>
-      <h2 class="h4 mb-4">{{ message }}</h2>
-      <a href="/" class="btn btn-primary">Go back</a>
+<div class="container vh-100 d-flex justify-content-center align-items-center">
+  <div class="col-md-6 col-lg-5">
+    <div class="card shadow-lg p-4">
+      <div class="card-body text-center">
+        <h1 class="display-1 text-danger">{{ code }}</h1>
+        <h2 class="h4 mb-4">{{ message }}</h2>
+        <a href="/" class="btn btn-primary w-100">Go back</a>
+      </div>
     </div>
   </div>
 </div>
 {% endblock %}
+

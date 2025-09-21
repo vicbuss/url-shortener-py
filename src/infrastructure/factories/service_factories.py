@@ -1,4 +1,4 @@
-from src.infrastructure.config import key, my_domain
+from src.infrastructure.config import my_domain, slug_key
 from src.infrastructure.factories.repository_factories import (
 	make_url_mapping_repository,
 	make_url_safety_validation_repository,
@@ -17,7 +17,7 @@ def make_url_validation_service() -> URLValidationService:
 
 def make_url_shortening_service() -> URLShorteningService:
 	url_mapping_repository = make_url_mapping_repository('redis')
-	slug_generation_strategy = BlowfishSlugGeneration(key)
+	slug_generation_strategy = BlowfishSlugGeneration(slug_key)
 	return URLShorteningService(url_mapping_repository, slug_generation_strategy)
 
 

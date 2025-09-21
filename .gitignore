@@ -15,5 +15,5 @@ wheels/
 # Virtual environments
 .venv
 
-test.key
+*.key
 .env

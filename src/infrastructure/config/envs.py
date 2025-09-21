@@ -8,8 +8,12 @@ from src.infrastructure.persistence.redis.r_credentials import RedisCredentials
 load_dotenv()
 
 my_domain = os.getenv('DOMAIN_NAME', 'localhost:5000')
-key_location = os.getenv('KEY_LOCATION', './test.key')
-key = import_key(key_location)
+
+slug_key_location = os.getenv('SLUG_KEY_LOCATION', './test.key')
+slug_key = import_key(slug_key_location)
+
+session_key_location = os.getenv('SESSION_KEY_LOCATION', './session.key')
+session_key = import_key(session_key_location)
 
 redis_host = os.getenv('REDIS_HOST', '127.0.0.1')
 redis_port = os.getenv('REDIS_PORT', '6379')

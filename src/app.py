@@ -3,6 +3,7 @@ import os
 from flask import Flask, render_template, request
 from werkzeug.exceptions import HTTPException
 
+from src.infrastructure.config import session_key
 from src.routes.routes import (
 	auth_controller_bp,
 	redirect_controller_bp,
@@ -17,6 +18,8 @@ app = Flask(
 	static_folder=os.path.join(BASE_DIR, 'public', 'static'),
 )
 
+app.secret_key = session_key
+
 app.register_blueprint(url_controller_bp)
 app.register_blueprint(redirect_controller_bp)
 app.register_blueprint(auth_controller_bp)
@@ -27,6 +30,13 @@ def handle_400(error: Exception) -> str:
 	msg = error.description if isinstance(error, HTTPException) else str(error)
 	app.logger.error(f'400 at {request.path}: {msg}')
 	return render_template('error.html', code=400, message='Bad Request')
+
+
+@app.errorhandler(401)
+def handle_401(error: Exception) -> str:
+	msg = error.description if isinstance(error, HTTPException) else str(error)
+	app.logger.error(f'401 at {request.path}: {msg}')
+	return render_template('error.html', code=401, message='Unauthorized')
 
 
 @app.errorhandler(404)

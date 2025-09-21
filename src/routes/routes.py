@@ -8,6 +8,7 @@ from src.infrastructure.factories.service_factories import (
 	make_url_shortening_service,
 	make_url_validation_service,
 )
+from src.routes.decorators.route_decorators import login_required
 
 url_validation_service = make_url_validation_service()
 url_shortening_service = make_url_shortening_service()
@@ -16,7 +17,7 @@ auth_service = make_auth_service()
 url_controller_bp = Blueprint('url_controller', __name__)
 url_controller = URLController(url_validation_service, url_shortening_service)
 url_controller_bp.add_url_rule(
-	'/', view_func=url_controller.shorten, methods=['GET', 'POST']
+	'/', view_func=login_required(url_controller.shorten), methods=['GET', 'POST']
 )
 
 redirect_controller_bp = Blueprint('redirect_controller', __name__)
@@ -40,4 +41,7 @@ auth_controller_bp.add_url_rule(
 )
 auth_controller_bp.add_url_rule(
 	'/login', view_func=auth_controller.login, methods=['GET', 'POST']
+)
+auth_controller_bp.add_url_rule(
+	'/logout', view_func=login_required(auth_controller.logout), methods=['GET']
 )

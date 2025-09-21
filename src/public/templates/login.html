@@ -7,6 +7,19 @@
   <div class="col-md-6 col-lg-5">
     <div class="card shadow-sm p-4">
       <h1 class="card-title text-center mb-4">Login</h1>
+
+      <!-- Flash messages (only inside login card) -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
       <form action="{{ url_for('auth_controller.login') }}" method="POST">
         
         <!-- Username -->
@@ -35,26 +48,13 @@
           >
         </div>
 
-        <!-- Remember me -->
-        <div class="form-check mb-3">
-          <input 
-            class="form-check-input" 
-            type="checkbox" 
-            id="remember" 
-            name="remember"
-          >
-          <label class="form-check-label" for="remember">
-            Remember me
-          </label>
-        </div>
-
         <!-- Submit -->
         <button type="submit" class="btn btn-primary w-100">Login</button>
       </form>
 
       <!-- Extra links -->
       <div class="text-center mt-3">
-        <a href="https://www.linkedin.com/in/victor-bussiki/">Contact me for a demo account</a>
+        <a href="{{ url_for('auth_controller.register') }}">Register</a>
       </div>
     </div>
   </div>

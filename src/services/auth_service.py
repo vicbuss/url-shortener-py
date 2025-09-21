@@ -1,3 +1,5 @@
+from typing import Union
+
 from src.models.user import User
 from src.repositories.users_repository import IUsersRepository
 
@@ -13,6 +15,6 @@ class AuthenticationSevice:
 		user = User(username=username, password=password, role=role, hashPwd=True)
 		self.__users_repository.save(user)
 
-	def validate_credentials(self, username: str, password: str) -> bool:
+	def validate_credentials(self, username: str, password: str) -> Union[User, None]:
 		user = self.__users_repository.find_by_username(username)
-		return bool(user and user.verify_password(password))
+		return user if user and user.verify_password(password) else None
